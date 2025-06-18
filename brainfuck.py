@@ -59,18 +59,28 @@ def interpret(code):
         if commands[command_pointer] == "[":
             if tape[tape_pointer] == 0:
                 open_counter = 0
-                while True:
+                while command_pointer < len(commands):
                     command_pointer += 1
+                    if command_pointer == len(commands):
+                        print("Mismatched looping brackets!", file=sys.stderr)
+                        sys.exit(1)
+                    if commands[command_pointer] == "[":
+                        open_counter += 1
                     if commands[command_pointer] == "]":
                         if open_counter == 0:
                             break
                         else:
                             open_counter -= 1
 
-                    if commands[command_pointer] == "[":
-                        open_counter += 1
             else:
                 call_stack.append(command_pointer)
+
+        # End a loop if the current cell value is 0, otherwise jump back to the matching open bracket
+        if commands[command_pointer] == "]":
+            if tape[tape_pointer] != 0:
+                command_pointer = call_stack[-1]
+            elif len(call_stack) != 0:
+                call_stack.pop()
 
         # Increment the command pointer by one, moving on to the next command in the input code
         command_pointer += 1
