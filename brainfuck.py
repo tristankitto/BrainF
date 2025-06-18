@@ -45,6 +45,10 @@ def interpret(code):
             if tape_pointer < 0:
                 tape_pointer = len(tape) - 1
 
+        # Print the character representation of the current cell value
+        if commands[command_pointer] == ".":
+            print(chr(tape[tape_pointer]), end="")
+
         # Increment the command pointer by one, moving on to the next command in the input code
         command_pointer += 1
 
