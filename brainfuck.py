@@ -14,6 +14,8 @@ def interpret(code):
     command_pointer = 0  # Start at the beginning of the code
     tape_pointer = 0  # Start at the first cell on the tape
 
+    call_stack = []  # Create an empty call stack for looping
+
     # Perform commands for each command in input file
     while command_pointer < len(commands):
 
@@ -52,6 +54,23 @@ def interpret(code):
         # Read a character from standard in and store it in the current cell
         if commands[command_pointer] == ",":
             tape[tape_pointer] = ord(sys.stdin.read(1))
+
+        # Start a loop if the current cell value is not 0, otherwise skip to the matching close bracket
+        if commands[command_pointer] == "[":
+            if tape[tape_pointer] == 0:
+                open_counter = 0
+                while True:
+                    command_pointer += 1
+                    if commands[command_pointer] == "]":
+                        if open_counter == 0:
+                            break
+                        else:
+                            open_counter -= 1
+
+                    if commands[command_pointer] == "[":
+                        open_counter += 1
+            else:
+                call_stack.append(command_pointer)
 
         # Increment the command pointer by one, moving on to the next command in the input code
         command_pointer += 1
