@@ -57,6 +57,7 @@ def interpret(code):
 
         # Start a loop if the current cell value is not 0, otherwise skip to the matching close bracket
         if commands[command_pointer] == "[":
+            call_stack.append(command_pointer)
             if tape[tape_pointer] == 0:
                 open_counter = 0
                 while command_pointer < len(commands):
@@ -71,9 +72,6 @@ def interpret(code):
                             break
                         else:
                             open_counter -= 1
-
-            else:
-                call_stack.append(command_pointer)
 
         # End a loop if the current cell value is 0, otherwise jump back to the matching open bracket
         if commands[command_pointer] == "]":
