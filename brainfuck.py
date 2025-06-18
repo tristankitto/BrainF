@@ -49,6 +49,10 @@ def interpret(code):
         if commands[command_pointer] == ".":
             print(chr(tape[tape_pointer]), end="")
 
+        # Read a character from standard in and store it in the current cell
+        if commands[command_pointer] == ",":
+            tape[tape_pointer] = ord(sys.stdin.read(1))
+
         # Increment the command pointer by one, moving on to the next command in the input code
         command_pointer += 1
 
