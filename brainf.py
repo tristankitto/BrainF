@@ -1,12 +1,12 @@
-# Brainfuck Interpreter
-# Read in a text file containing Brainfuck code and execute in the terminal.
-# Usage: python brainfuck.py <filename>
+# BrainF Interpreter
+# Read in a text file containing BrainF code and execute in the terminal.
+# Usage: python brainf.py <filename>
 
 import sys
 
 
 def interpret(code):
-    # Convert Brainfuck code to a list of commands
+    # Convert BrainF code to a list of commands
     commands = list(code)
 
     # Initialise variables
@@ -87,7 +87,7 @@ def interpret(code):
 if __name__ == "__main__":
 
     if len(sys.argv) != 2:
-        print("Usage: python brainfuck.py <filename>")
+        print("Usage: python brainf.py <filename>")
         sys.exit(1)
 
     filename = sys.argv[1]
